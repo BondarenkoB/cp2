@@ -1,20 +1,61 @@
-﻿// c++ 2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
+#include <Windows.h>
 
-#include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+bool isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+int daysInMonth(int month, int year) {
+    if (month == 2) {
+        return isLeapYear(year) ? 29 : 28;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        return 30;
+    }
+    else {
+        return 31;
+    }
+}
 
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+int countDays(int day, int month, int year) {
+    int days = 0;
+
+    for (int y = 1; y < year; y++) {
+        days += isLeapYear(y) ? 366 : 365;
+    }
+
+    for (int m = 1; m < month; m++) {
+        days += daysInMonth(m, year);
+    }
+
+    days += day;
+
+    return days;
+}
+
+void calculateDaysBetweenDates() {
+    int day1, month1, year1;
+    int day2, month2, year2;
+
+    cout << "Введіть першу дату (день місяць рік): ";
+    cin >> day1 >> month1 >> year1;
+
+    cout << "Введіть другу дату (день місяць рік): ";
+    cin >> day2 >> month2 >> year2;
+
+    int days1 = countDays(day1, month1, year1);
+    int days2 = countDays(day2, month2, year2);
+
+    int daysBetweenDates = abs(days2 - days1);
+    cout << "Кількість днів між двома датами: " << daysBetweenDates << endl;
+}
+
+int main() 
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    calculateDaysBetweenDates();
+    return 0;
+}
