@@ -1,13 +1,16 @@
 ﻿#include <iostream>
+#include <Windows.h>
 
 using namespace std;
 
-void swapDigits() {
+void swapDigits() 
+{
     int number;
     cout << "Введіть чотиризначне число: ";
     cin >> number;
 
-    if (number < 1000 || number > 9999) {
+    if (number < 1000 || number > 9999) 
+    {
         cout << "Помилка! Введене число не є чотиризначним." << endl;
         return;
     }
@@ -21,7 +24,10 @@ void swapDigits() {
     cout << "Змінене число: " << newNumber << endl;
 }
 
-int main() {
+int main() 
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     swapDigits();
     return 0;
 }
