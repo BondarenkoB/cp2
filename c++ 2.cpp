@@ -1,20 +1,63 @@
-﻿// c++ 2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
+#include <Windows.h>
 
-#include <iostream>
+using namespace std;
+
+void calculateFuel() 
+{
+    const int fuelCapacity = 300;
+    double distanceAB, distanceBC, cargoWeight;
+
+    cout << "Введіть відстань між пунктами А і В (км): ";
+    cin >> distanceAB;
+
+    cout << "Введіть відстань між пунктами В і С (км): ";
+    cin >> distanceBC;
+
+    cout << "Введіть вагу вантажу (кг): ";
+    cin >> cargoWeight;
+
+    double fuelConsumption;
+
+    if (cargoWeight <= 500) 
+    {
+        fuelConsumption = 1;
+    }
+    else if (cargoWeight <= 1000)
+    {
+        fuelConsumption = 4;
+    }
+    else if (cargoWeight <= 1500) 
+    {
+        fuelConsumption = 7;
+    }
+    else if (cargoWeight <= 2000) 
+    {
+        fuelConsumption = 9;
+    }
+    else {
+        cout << "Неможливо підняти літак з таким вантажем!" << endl;
+        return;
+    }
+
+    double totalFuelNeeded = (distanceAB + distanceBC) * fuelConsumption;
+    double fuelToRefuel = totalFuelNeeded - fuelCapacity;
+
+    if (fuelToRefuel <= 0) 
+    {
+        cout << "Потрібно дозаправити літак: 0 л" << endl;
+    }
+    else
+    {
+        cout << "Потрібно дозаправити літак: " << fuelToRefuel << " л" << endl;
+    }
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    calculateFuel();
+    return 0;
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
